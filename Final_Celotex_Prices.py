@@ -10,7 +10,6 @@ from selenium import webdriver # type: ignore
 from datetime import datetime
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager # type: ignore
-from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
 
 def get_driver():
