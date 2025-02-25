@@ -8,20 +8,15 @@ from selenium.webdriver.support.ui import Select # type: ignore
 from selenium.webdriver.common.by import By # type: ignore
 from selenium import webdriver # type: ignore
 from datetime import datetime
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager # type: ignore
-from selenium.webdriver.chrome.options import Options
+import undetected_chromedriver as uc
 
 def get_driver():
-    options = Options()
+    options = uc.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-gpu')
-    options.binary_location = "/usr/bin/chromium"
-
-    service = Service("/usr/bin/chromium-browser")
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = uc.Chrome(options=options)
     return driver
 
 def scrape_online_insulation_sales(url):
