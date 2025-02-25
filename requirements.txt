@@ -6,6 +6,5 @@ pandas==2.2.2
 plotly
 requests
 selenium>=4.0
-webdriver-manager>=3.0
 openpyxl
 seleniumbase
