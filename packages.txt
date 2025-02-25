@@ -1,0 +1,1 @@
+chromium-browser=114.0.5735.90-0ubuntu0.20.04.1
