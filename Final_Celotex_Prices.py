@@ -4,19 +4,25 @@ from bs4 import BeautifulSoup # type: ignore
 import requests # type: ignore
 import time
 import re
-from selenium.webdriver.support.ui import Select # type: ignore
-from selenium.webdriver.common.by import By # type: ignore
-from selenium import webdriver # type: ignore
+from selenium.webdriver.common.by import By  # type: ignore
+from selenium.webdriver.support.ui import Select  # type: ignore
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+from selenium import webdriver
 from datetime import datetime
-import undetected_chromedriver as uc
 
 def get_driver():
-    options = uc.ChromeOptions()
-    options.add_argument('--headless')
+    options = Options()
+    options.add_argument('--headless')  # Run Firefox in headless mode
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-gpu')
-    driver = uc.Chrome(options=options)
+
+    # Set Firefox binary and driver paths
+    options.binary_location = '/usr/bin/firefox'
+    driver_path = '/usr/bin/geckodriver'
+
+    service = Service(driver_path)
+    driver = webdriver.Firefox(service=service, options=options)
     return driver
 
 def scrape_online_insulation_sales(url):
