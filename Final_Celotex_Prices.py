@@ -20,7 +20,7 @@ def get_driver():
     options.add_argument('--disable-gpu')
     options.binary_location = "/usr/bin/chromium"
 
-    service = Service("/usr/bin/chromedriver")
+    service = Service("/usr/bin/chromium-browser")
     driver = webdriver.Chrome(service=service, options=options)
     return driver
 
