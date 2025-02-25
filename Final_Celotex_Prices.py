@@ -10,6 +10,8 @@ from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium import webdriver
 from datetime import datetime
+import os, sys
+from webdriver_manager.firefox import GeckoDriverManager
 
 def get_driver():
     options = Options()
@@ -17,12 +19,8 @@ def get_driver():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    # Set Firefox binary and driver paths
-    options.binary_location = '/usr/bin/firefox'
-    driver_path = '/usr/bin/geckodriver'
-
-    service = Service(driver_path)
-    driver = webdriver.Firefox(service=service, options=options)
+    service = Service(GeckoDriverManager().install())
+    driver = webdriver.Firefox(options=options, service=service)
     return driver
 
 def scrape_online_insulation_sales(url):
