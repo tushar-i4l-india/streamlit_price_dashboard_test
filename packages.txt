@@ -1,2 +1,1 @@
-firefox-esr
-geckodriver
+chromium-browser=114.0

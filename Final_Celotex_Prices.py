@@ -4,24 +4,12 @@ from bs4 import BeautifulSoup # type: ignore
 import requests # type: ignore
 import time
 import re
-from selenium.webdriver.common.by import By  # type: ignore
-from selenium.webdriver.support.ui import Select  # type: ignore
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
-from selenium import webdriver
+from selenium.webdriver.support.ui import Select # type: ignore
+from selenium.webdriver.common.by import By # type: ignore
+from selenium import webdriver # type: ignore
 from datetime import datetime
-import os, sys
-from webdriver_manager.firefox import GeckoDriverManager
-
-def get_driver():
-    options = Options()
-    options.add_argument('--headless')  # Run Firefox in headless mode
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-
-    service = Service(GeckoDriverManager().install())
-    driver = webdriver.Firefox(options=options, service=service)
-    return driver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager # type: ignore
 
 def scrape_online_insulation_sales(url):
     try:
@@ -40,7 +28,12 @@ def scrape_online_insulation_sales(url):
 def scrape_building_materials(url, series):
     try:
         print(f"Processing URL {url}")
-        driver = get_driver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get(url)  
         thickness_div = driver.find_element(By.CLASS_NAME, "product-options-wrapper")
         if thickness_div:
@@ -95,7 +88,12 @@ def scrape_i4l(url):
 
 def scrape_insulationhub(url):
     print(f"Processing URL {url}")
-    driver = get_driver()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
@@ -172,7 +170,12 @@ def scrape_directinsulation(url):
 
 def scrape_insulationbee(url):
     print(f"Processing URL {url}")
-    driver = get_driver()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
@@ -242,7 +245,12 @@ def scrape_diybuildingsupplies(url):
 
 def scrape_insulationwholesale(url):
     print(f"Processing URL {url}")
-    driver = get_driver()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
