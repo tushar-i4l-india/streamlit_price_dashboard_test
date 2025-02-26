@@ -12,6 +12,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager # type: ignore
 from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import WebDriverException
 
 @st.cache_resource
 def get_driver():
@@ -20,13 +21,26 @@ def get_driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+
+    try:
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),
+            options=options,
+        )
+        print("Driver initialized successfully!")
+        return driver
+
+    except WebDriverException as e:
+        print(f"Error initializing driver: {e}")
+        st.error(f"Error initializing driver: {e}")
+        return None
     
-    return webdriver.Chrome(
-        service=Service(
-            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-        ),
-        options=options,
-    )
+    # return webdriver.Chrome(
+    #     service=Service(
+    #         ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+    #     ),
+    #     options=options,
+    # )
 
 def scrape_online_insulation_sales(url):
     try:
