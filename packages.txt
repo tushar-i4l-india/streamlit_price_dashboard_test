@@ -1,1 +1,1 @@
-chromium-browser=114.0
+chromium
