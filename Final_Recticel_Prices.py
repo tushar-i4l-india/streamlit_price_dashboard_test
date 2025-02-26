@@ -21,19 +21,61 @@ def get_driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--disable-software-rasterizer")
+    options.add_argument("--window-size=1920,1080")
+    
     try:
         driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),
+            service=Service(
+                ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            ),
             options=options,
         )
         print("Driver initialized successfully!")
+        
+        # Test connection
+        driver.get("https://www.google.com")
+        print(f"Page title: {driver.title}")
+        
         return driver
-
     except WebDriverException as e:
         print(f"Error initializing driver: {e}")
         st.error(f"Error initializing driver: {e}")
         return None
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        st.error(f"Unexpected error: {e}")
+        return None
+
+# Check Chromium version
+try:
+    chromium_version = subprocess.check_output(['chromium-browser', '--version']).decode('utf-8')
+    print(f"Chromium Version: {chromium_version}")
+except Exception as e:
+    print(f"Error checking Chromium version: {e}")
+
+# @st.cache_resource
+# def get_driver():
+#     options = Options()
+#     options.add_argument("--disable-gpu")
+#     options.add_argument("--headless")
+#     options.add_argument("--no-sandbox")
+#     options.add_argument("--disable-dev-shm-usage")
+
+#     try:
+#         driver = webdriver.Chrome(
+#             service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),
+#             options=options,
+#         )
+#         print("Driver initialized successfully!")
+#         return driver
+
+#     except WebDriverException as e:
+#         print(f"Error initializing driver: {e}")
+#         st.error(f"Error initializing driver: {e}")
+#         return None
     
     # return webdriver.Chrome(
     #     service=Service(
