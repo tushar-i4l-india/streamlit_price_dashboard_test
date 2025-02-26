@@ -32,7 +32,7 @@ def scrape_building_materials(url, series):
         options.add_argument('--headless')
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        service = Service(ChromeDriverManager().install())
+        service = Service(ChromeDriverManager(version="120.0.6099.224").install())
         driver = webdriver.Chrome(service=service, options=options)
         driver.get(url)  
         thickness_div = driver.find_element(By.CLASS_NAME, "product-options-wrapper")
@@ -92,7 +92,7 @@ def scrape_insulationhub(url):
     options.add_argument('--headless')
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    service = Service(ChromeDriverManager().install())
+    service = Service(ChromeDriverManager(version="120.0.6099.224").install())
     driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
     html = driver.page_source
@@ -174,7 +174,7 @@ def scrape_insulationbee(url):
     options.add_argument('--headless')
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    service = Service(ChromeDriverManager().install())
+    service = Service(ChromeDriverManager(version="120.0.6099.224").install())
     driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
     html = driver.page_source
@@ -249,7 +249,7 @@ def scrape_insulationwholesale(url):
     options.add_argument('--headless')
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    service = Service(ChromeDriverManager().install())
+    service = Service(ChromeDriverManager(version="120.0.6099.224").install())
     driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
     html = driver.page_source
