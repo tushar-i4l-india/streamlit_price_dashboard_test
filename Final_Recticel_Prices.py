@@ -159,7 +159,9 @@ def scrape_i4l(url):
 
 def scrape_insulationhub(url):
     print(f"Processing URL {url}")
+    time.sleep(10)
     driver = get_driver()
+    time.sleep(10)
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
@@ -288,7 +290,9 @@ def scrape_insulationuk(url):
 
 def scrape_insulationwholesale(url):
     print(f"Processing URL {url}")
+    time.sleep(10)
     driver = get_driver()
+    time.sleep(5)
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
