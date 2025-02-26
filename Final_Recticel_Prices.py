@@ -289,7 +289,7 @@ for index, row in df.iterrows():
         "Planet Insulation": scrape_planetinsulation(row["Planet Insulation"]) if pd.notna(row["Planet Insulation"]) else 'No Link',
         "Insulation Shop": scrape_insulationshop(row["Insulation Shop"]) if pd.notna(row["Insulation Shop"]) else 'No Link',
         "Building Materials Direct": scrape_directinsulation(row["Building Materials Direct"]) if pd.notna(row["Building Materials Direct"]) else 'No Link',
-        "Insulation Bee": scrape_insulationbee(row["Insulation Bee"]) if pd.notna(row["Insulation Bee"]) else 'No Link',
+        # "Insulation Bee": scrape_insulationbee(row["Insulation Bee"]) if pd.notna(row["Insulation Bee"]) else 'No Link',
         "Trade Insulations": scrape_tradeinsulation(row["Trade Insulations"]) if pd.notna(row["Trade Insulations"]) else 'No Link',
         "Materials Market": scrape_materialmarket(row["Materials Market"]) if pd.notna(row["Materials Market"]) else 'No Link',
         "Insulation Wholesale": scrape_insulationwholesale(row["Insulation Wholesale"]) if pd.notna(row["Insulation Wholesale"]) else 'No Link',
