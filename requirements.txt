@@ -8,3 +8,4 @@ requests
 selenium>=4.0
 webdriver-manager>=3.0
 openpyxl
+seleniumbase
