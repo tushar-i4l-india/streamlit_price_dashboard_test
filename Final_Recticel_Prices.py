@@ -186,11 +186,10 @@ def scrape_directinsulation(url):
 
 def scrape_insulationbee(url):
     print(f"Processing URL {url}") 
-    driver = get_driver()
     driver.get(url)
+    time.sleep(10)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    driver.quit()
     try:
         price_element = soup.find("span", id = "price-old")
         if price_element:
@@ -243,8 +242,8 @@ def scrape_insulationuk(url):
 
 def scrape_insulationwholesale(url):
     print(f"Processing URL {url}")
-    time.sleep(10)
     driver.get(url)
+    time.sleep(10)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     try:
