@@ -7,7 +7,6 @@ import re
 from selenium.webdriver.support.ui import Select # type: ignore
 from selenium.webdriver.common.by import By # type: ignore
 from selenium import webdriver # type: ignore
-from datetime import datetime
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager # type: ignore
 from webdriver_manager.core.os_manager import ChromeType
@@ -98,6 +97,7 @@ def scrape_i4l(url):
 def scrape_insulationhub(url):
     print(f"Processing URL {url}")
     driver.get(url)
+    time.sleep(10)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     try:
@@ -172,6 +172,8 @@ def scrape_directinsulation(url):
 
 def scrape_insulationbee(url):
     print(f"Processing URL {url}")
+    driver.get(url)
+    time.sleep(10)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     try:
@@ -240,6 +242,7 @@ def scrape_diybuildingsupplies(url):
 def scrape_insulationwholesale(url):
     print(f"Processing URL {url}")
     driver.get(url)
+    time.sleep(10)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     try:
