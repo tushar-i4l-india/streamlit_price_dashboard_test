@@ -44,8 +44,7 @@ def scrape_online_insulation_sales(url):
 # Function to scrape ex-VAT price from Building Materials
 def scrape_building_materials(url, series):
     try:
-        print(f"Processing URL {url}")
-        driver = get_driver()
+        print(f"Processing URL {url}")  
         driver.get(url)  
         thickness_div = driver.find_element(By.CLASS_NAME, "product-options-wrapper")
         if thickness_div:
@@ -65,8 +64,6 @@ def scrape_building_materials(url, series):
         return 'Price Not Found'
     except Exception as e:
         return f'Error: {str(e)}'
-    finally:
-        driver.quit()
 
 # Function to scrape ex-VAT price from Insulation Superstore
 def scrape_insulation_superstore(url):
@@ -100,11 +97,9 @@ def scrape_i4l(url):
 
 def scrape_insulationhub(url):
     print(f"Processing URL {url}")
-    driver = get_driver()
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    driver.quit() 
     try:
         price_div = soup.find("div", class_ = "price-wrapper")
         price_elements = price_div.find_all("span", class_ = "woocommerce-Price-amount amount")
@@ -177,11 +172,8 @@ def scrape_directinsulation(url):
 
 def scrape_insulationbee(url):
     print(f"Processing URL {url}")
-    driver = get_driver()
-    driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    driver.quit() 
     try:
         price_element = soup.find("span", id = "price-old")
         if price_element:
@@ -247,11 +239,9 @@ def scrape_diybuildingsupplies(url):
 
 def scrape_insulationwholesale(url):
     print(f"Processing URL {url}")
-    driver = get_driver()
     driver.get(url)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    driver.quit() 
     try:
         price_element = soup.find_all("span", class_ = "woocommerce-Price-amount amount")[2]
         if price_element:
@@ -261,7 +251,7 @@ def scrape_insulationwholesale(url):
         return f'Error: {str(e)}'
         
 df = pd.read_excel("Celotex & Recticel Links.xlsx", sheet_name="Celotex")
-
+driver = get_driver()
 result_data = []
 for index, row in df.iterrows():
     sku = row["SKU"]
@@ -288,7 +278,8 @@ for index, row in df.iterrows():
     result_data.append({"SKU": sku, "Product": product, **scraped_prices})
         
 result_df = pd.DataFrame(result_data)
-current_date = datetime.now().strftime("%d-%m-%Y")  # Format: DD-MM-YYYY
-output_file_name = f"Compititor's_Price\\Celotex_Prices\\Celotex_Prices_{current_date}.xlsx"
-result_df.to_excel(output_file_name)
-result_df
+# current_date = datetime.now().strftime("%d-%m-%Y")  # Format: DD-MM-YYYY
+# output_file_name = f"Compititor's_Price\\Celotex_Prices\\Celotex_Prices_{current_date}.xlsx"
+# result_df.to_excel(output_file_name)
+# result_df
+driver.quit()

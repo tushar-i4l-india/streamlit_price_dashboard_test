@@ -15,48 +15,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
 import subprocess
 
-# @st.cache_resource
-# def get_driver():
-#     options = Options()
-#     options.add_argument("--disable-gpu")
-#     options.add_argument("--headless")
-#     options.add_argument("--no-sandbox")
-#     options.add_argument("--disable-dev-shm-usage")
-#     options.add_argument("--remote-debugging-port=9222")
-#     options.add_argument("--disable-software-rasterizer")
-#     options.add_argument("--window-size=1920,1080")
-    
-#     try:
-#         driver = webdriver.Chrome(
-#             service=Service(
-#                 ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-#             ),
-#             options=options,
-#         )
-#         print("Driver initialized successfully!")
-        
-#         # Test connection
-#         driver.get("https://www.google.com")
-#         print(f"Page title: {driver.title}")
-        
-#         return driver
-#     except WebDriverException as e:
-#         print(f"Error initializing driver: {e}")
-#         st.error(f"Error initializing driver: {e}")
-#         return None
-
-#     except Exception as e:
-#         print(f"Unexpected error: {e}")
-#         st.error(f"Unexpected error: {e}")
-#         return None
-
-# Check Chromium version
-# try:
-#     chromium_version = subprocess.check_output(['chromium', '--version']).decode('utf-8')
-#     print(f"Chromium Version: {chromium_version}")
-# except Exception as e:
-#     print(f"Error checking Chromium version: {e}")
-
 @st.cache_resource
 def get_driver():
     options = Options()
@@ -64,19 +22,6 @@ def get_driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-
-    # try:
-    #     driver = webdriver.Chrome(
-    #         service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),
-    #         options=options,
-    #     )
-    #     print("Driver initialized successfully!")
-    #     return driver
-
-    # except WebDriverException as e:
-    #     print(f"Error initializing driver: {e}")
-    #     st.error(f"Error initializing driver: {e}")
-    #     return None
     
     return webdriver.Chrome(
         service=Service(
@@ -328,7 +273,7 @@ for index, row in df.iterrows():
         "Planet Insulation": scrape_planetinsulation(row["Planet Insulation"]) if pd.notna(row["Planet Insulation"]) else 'No Link',
         "Insulation Shop": scrape_insulationshop(row["Insulation Shop"]) if pd.notna(row["Insulation Shop"]) else 'No Link',
         "Building Materials Direct": scrape_directinsulation(row["Building Materials Direct"]) if pd.notna(row["Building Materials Direct"]) else 'No Link',
-        # "Insulation Bee": scrape_insulationbee(row["Insulation Bee"]) if pd.notna(row["Insulation Bee"]) else 'No Link',
+        "Insulation Bee": scrape_insulationbee(row["Insulation Bee"]) if pd.notna(row["Insulation Bee"]) else 'No Link',
         "Trade Insulations": scrape_tradeinsulation(row["Trade Insulations"]) if pd.notna(row["Trade Insulations"]) else 'No Link',
         "Materials Market": scrape_materialmarket(row["Materials Market"]) if pd.notna(row["Materials Market"]) else 'No Link',
         "Insulation Wholesale": scrape_insulationwholesale(row["Insulation Wholesale"]) if pd.notna(row["Insulation Wholesale"]) else 'No Link',
@@ -338,8 +283,8 @@ for index, row in df.iterrows():
     result_data.append({"SKU": sku, "Product": product, **scraped_prices})
         
 result_df = pd.DataFrame(result_data)
-current_date = datetime.now().strftime("%d-%m-%Y")  
-output_file_name = f"Compititor's_Price\\Recticel_Prices\\Recticel_Prices_{current_date}.xlsx"
-result_df.to_excel(output_file_name)
-result_df
+# current_date = datetime.now().strftime("%d-%m-%Y")  
+# output_file_name = f"Compititor's_Price\\Recticel_Prices\\Recticel_Prices_{current_date}.xlsx"
+# result_df.to_excel(output_file_name)
+# result_df
 driver.quit()
