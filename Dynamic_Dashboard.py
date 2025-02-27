@@ -1,7 +1,9 @@
+from click import progressbar
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore
 import importlib.util
 import plotly.express as px # type: ignore
+import time
 
 st.set_page_config(page_title="Competitor Price Comparison Dashboard", layout="wide", menu_items={'Get Help': 'https://www.extremelycoolapp.com/help', 
                                                                                                   'Report a bug': "https://www.extremelycoolapp.com/bug", 
@@ -11,16 +13,24 @@ st.title("Competitor Price Comparison Dashboard 💷")
 script_options = {
     "Celotex": "Final_Celotex_Prices.py",
     "Recticel": "Final_Recticel_Prices.py",
-    "Knauf": "script3.py"
+    # "Knauf": "script3.py"
 }
 selected_script = st.selectbox("Select a Brand", list(script_options.keys()))
 
 @st.cache_data
 def run_script(script_path):
+    progress_bar = st.progress(0)
+    status_text = st.empty()
     spec = importlib.util.spec_from_file_location("dynamic_script", script_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
 
+    total_steps = 100
+    for step in range(total_steps):
+        time.sleep(12)  # Simulate the step delay (replace with real step tracking)
+        progress_bar.progress(step + 1)
+        status_text.text(f"Running {script_path}: {step + 1}% complete")
+    
     if hasattr(module, "result_df") and isinstance(module.result_df, pd.DataFrame):
         return module.result_df
     else:
@@ -29,6 +39,7 @@ def run_script(script_path):
 df = pd.DataFrame()
 if st.button("Run Script"):
     script_path = script_options[selected_script]
+    st.info("This process may take 20-30 minutes. Please wait while we scrape the data!")
     df = run_script(script_path)
     if df is not None:
         st.session_state["df"] = df  # Store DataFrame in session state
