@@ -22,6 +22,19 @@ def get_driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+
+    # try:
+    #     driver = webdriver.Chrome(
+    #         service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),
+    #         options=options,
+    #     )
+    #     print("Driver initialized successfully!")
+    #     return driver
+
+    # except WebDriverException as e:
+    #     print(f"Error initializing driver: {e}")
+    #     st.error(f"Error initializing driver: {e}")
+    #     return None
     
     return webdriver.Chrome(
         service=Service(
@@ -283,8 +296,8 @@ for index, row in df.iterrows():
     result_data.append({"SKU": sku, "Product": product, **scraped_prices})
         
 result_df = pd.DataFrame(result_data)
-# current_date = datetime.now().strftime("%d-%m-%Y")  
-# output_file_name = f"Compititor's_Price\\Recticel_Prices\\Recticel_Prices_{current_date}.xlsx"
-# result_df.to_excel(output_file_name)
-# result_df
+current_date = datetime.now().strftime("%d-%m-%Y")  
+output_file_name = f"Compititor's_Price\\Recticel_Prices\\Recticel_Prices_{current_date}.xlsx"
+result_df.to_excel(output_file_name)
+result_df
 driver.quit()
