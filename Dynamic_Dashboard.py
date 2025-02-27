@@ -25,11 +25,11 @@ def run_script(script_path):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
 
-    total_steps = 100
-    for step in range(total_steps):
-        time.sleep(12)  # Simulate the step delay (replace with real step tracking)
-        progress_bar.progress(step + 1)
-        status_text.text(f"Running {script_path}: {step + 1}% complete")
+    # total_steps = 100
+    # for step in range(total_steps):
+    #     time.sleep(12)  # Simulate the step delay (replace with real step tracking)
+    #     progress_bar.progress(step + 1)
+    #     status_text.text(f"Running {script_path}: {step + 1}% complete")
     
     if hasattr(module, "result_df") and isinstance(module.result_df, pd.DataFrame):
         return module.result_df
