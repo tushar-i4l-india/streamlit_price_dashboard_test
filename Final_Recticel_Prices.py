@@ -12,8 +12,6 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager # type: ignore
 from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import WebDriverException
-import subprocess
 
 @st.cache_resource
 def get_driver():

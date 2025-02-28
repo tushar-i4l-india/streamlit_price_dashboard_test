@@ -19,8 +19,8 @@ selected_script = st.selectbox("Select a Brand", list(script_options.keys()))
 
 @st.cache_data
 def run_script(script_path):
-    progress_bar = st.progress(0)
-    status_text = st.empty()
+    # progress_bar = st.progress(0)
+    # status_text = st.empty()
     spec = importlib.util.spec_from_file_location("dynamic_script", script_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -39,7 +39,7 @@ def run_script(script_path):
 df = pd.DataFrame()
 if st.button("Run Script"):
     script_path = script_options[selected_script]
-    st.info("This process may take 20-30 minutes. Please wait while we scrape the data!")
+    st.info("This process may take 30-40 minutes. Please wait while we scrape the data!")
     df = run_script(script_path)
     if df is not None:
         st.session_state["df"] = df  # Store DataFrame in session state
